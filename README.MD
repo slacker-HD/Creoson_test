@@ -12,3 +12,12 @@
 
 - Nodejs测试代码，打开当前目录下fin.prt添加参数后保存。
 - creoson_js的文件复制自`CREOSON Server``\web\assets\creoson_stuff\creoson_js`，加入模块导出。
+
+## test.html
+
+- HTML测试代码，打开当前目录下fin.prt添加参数后保存。
+- 注意要把以下文件复制到`CREOSON Server``\web`文件夹下，访问`http://localhost:9056/test.html`实现功能，端口由`CREOSON Server`确定，不这样会有跨域权限的问题导致网页功能不正常无法访问本地文件。
+
+├── test.html
+└── js/
+    └── creoson-script.js

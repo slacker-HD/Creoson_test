@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Creoson 自动化操作</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Microsoft YaHei', Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid #3498db;
+    }
+
+    .config-group {
+      margin-bottom: 1.8rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .config-item {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .config-item label {
+      width: 120px;
+      font-weight: 600;
+      color: #34495e;
+    }
+
+    .config-item input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .config-item input:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    }
+
+    .btn-group {
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #7f8c8d;
+      transform: translateY(-2px);
+    }
+
+    .log-section h3 {
+      color: #2c3e50;
+      margin-bottom: 0.8rem;
+      font-size: 16px;
+    }
+
+    #log {
+      white-space: pre-wrap;
+      background: #f8f9fa;
+      padding: 1.2rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      height: 400px;
+      overflow-y: auto;
+      font-family: Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #2c3e50;
+    }
+
+    /* 滚动条美化 */
+    #log::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #log::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    #log::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 4px;
+    }
+
+    #log::-webkit-scrollbar-thumb:hover {
+      background: #999;
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      .config-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .config-item label {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Creoson示例</h2>
+    <h4>打开文件添加或修改参数后保存。</h4>
+
+    <!-- 配置项区域 -->
+    <div class="config-group">
+      <div class="config-item">
+        <label for="creosonUrl">Creoson 地址</label>
+        <input id="creosonUrl" type="text" value="http://localhost:9056/creoson">
+      </div>
+      <div class="config-item">
+        <label for="startDir">工作目录</label>
+        <input id="startDir" type="text" value="D:\mydoc\Creoson_test\">
+      </div>
+      <div class="config-item">
+        <label for="startCmd">启动命令</label>
+        <input id="startCmd" type="text" value="nitro_proe_remote.bat">
+      </div>
+      <div class="config-item">
+        <label for="fileName">目标文件</label>
+        <input id="fileName" type="text" value="fin.prt">
+      </div>
+      <!-- 新增参数名配置项 -->
+      <div class="config-item">
+        <label for="paramName">参数名称</label>
+        <input id="paramName" type="text" value="test">
+      </div>
+      <!-- 新增参数值配置项 -->
+      <div class="config-item">
+        <label for="paramValue">参数值</label>
+        <input id="paramValue" type="text" value="测试参数值3">
+      </div>
+    </div>
+
+    <!-- 按钮区域 -->
+    <div class="btn-group">
+      <button id="btnRunAll" class="btn btn-primary">执行操作</button>
+      <button id="btnClearLog" class="btn btn-secondary">清空日志</button>
+    </div>
+
+    <!-- 日志区域 -->
+    <div class="log-section">
+      <h3>执行日志</h3>
+      <div id="log"></div>
+    </div>
+  </div>
+
+  <!-- 引入依赖和自定义脚本 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/assets/creoson_stuff/creoson_js/common_creoson_ajax.js"></script>
+  <script src="/assets/creoson_stuff/creoson_js/creoson_connection.js"></script>
+  <script src="/assets/creoson_stuff/creoson_js/creoson_creo.js"></script>
+  <script src="/assets/creoson_stuff/creoson_js/creoson_file.js"></script>
+  <script src="/assets/creoson_stuff/creoson_js/creoson_parameter.js"></script>
+  <script src="js/creoson-script.js"></script>
+</body>
+</html>
