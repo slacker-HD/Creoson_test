@@ -21,3 +21,7 @@
 ├── test.html
 └── js/
     └── creoson-script.js
+
+## test.php
+
+- PHP测试代码，打开当前目录下fin.prt添加参数后保存。

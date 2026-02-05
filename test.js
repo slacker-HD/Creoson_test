@@ -61,7 +61,7 @@ sessObj.start_creo()
     .then(function (resp) {
         console.log('file_open succeeded. Response:');
         console.log(JSON.stringify(resp, null, 2));
-        let p = new creo_parameter.ParameterObj({ name: 'Nodejst', value: 'Nodejs测试参数值3', type: 'STRING', designate: true, no_create: false });
+        let p = new creo_parameter.ParameterObj({ name: 'test', value: 'Nodejs调用CREOSON添加的参数', type: 'STRING', designate: true, no_create: false });
         return p.set();
     })
     .then(function (resp) {

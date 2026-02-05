@@ -38,10 +38,10 @@ result = c._creoson_post(command, function, data)
 # 添加或修改参数
 # command = "parameter"
 # function = "set"
-# data = {"name": "test", "type": "STRING", "value": "测试参数值", "no_create": False, "designate": True}
+# data = {"name": "test", "type": "STRING", "value": "Python调用CREOSON添加的参数", "no_create": False, "designate": True}
 # result = c._creoson_post(command, function, data)
 # 这样也行
-c.parameter_set("test", "测试参数值2", None, "STRING", None, True, False)
+c.parameter_set("test", "Python调用CREOSON添加的参数", None, "STRING", None, True, False)
 
 # 保存文件
 # command = "file"

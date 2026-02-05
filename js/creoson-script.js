@@ -8,8 +8,8 @@ function log(msg) {
 }
 
 // 初始化清空日志按钮
-document.getElementById('btnClearLog').addEventListener('click', function() { 
-  document.getElementById('log').textContent = ''; 
+document.getElementById('btnClearLog').addEventListener('click', function () {
+  document.getElementById('log').textContent = '';
   log('日志已清空');
 });
 
@@ -19,11 +19,11 @@ function setCreosonUrl(url) {
     creo.ajax.url = url;
     creo.ajax.type = 'post';
     creo.ajax.dataType = 'json';
-    
+
     // 重写AJAX请求逻辑，兼容浏览器跨域+SessionID自动维护
     if (!creo.ajax.rewritten) {
-      creo.ajax.request = function(dataObj) {
-        return new Promise(function(resolve, reject) {
+      creo.ajax.request = function (dataObj) {
+        return new Promise(function (resolve, reject) {
           // 自动携带SessionID
           if (creo.ajax.sessionId !== -1 && typeof creo.ajax.sessionId !== 'undefined') {
             dataObj.sessionId = creo.ajax.sessionId;
@@ -36,7 +36,7 @@ function setCreosonUrl(url) {
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.setRequestHeader('Content-Length', postData.length);
 
-          xhr.onload = function() {
+          xhr.onload = function () {
             if (xhr.status >= 200 && xhr.status < 300) {
               try {
                 const response = JSON.parse(xhr.responseText);
@@ -59,7 +59,7 @@ function setCreosonUrl(url) {
             }
           };
 
-          xhr.onerror = function() {
+          xhr.onerror = function () {
             reject(new Error(`网络错误: 无法连接到 ${creo.ajax.url} (请确认Creoson Server已启动)`));
           };
 
@@ -73,20 +73,20 @@ function setCreosonUrl(url) {
 }
 
 // 监听Creoson URL输入框变化
-document.getElementById('creosonUrl').addEventListener('change', function(e){ 
-  setCreosonUrl(e.target.value); 
+document.getElementById('creosonUrl').addEventListener('change', function (e) {
+  setCreosonUrl(e.target.value);
 });
 
 // 启动Creo函数
 async function startCreo(startDir, startCmd) {
   log(`开始启动Creo - 工作目录: ${startDir}, 启动命令: ${startCmd}`);
-  const sess = new creo.ConnectionObj({ 
-    start_dir: startDir, 
-    start_command: startCmd, 
-    retries: 5, 
-    use_desktop: false 
+  const sess = new creo.ConnectionObj({
+    start_dir: startDir,
+    start_command: startCmd,
+    retries: 5,
+    use_desktop: false
   });
-  
+
   try {
     const resp = await sess.start_creo();
     log(`✅ Creo启动成功: ${JSON.stringify(resp)}`);
@@ -117,25 +117,25 @@ async function changeDir(startDir) {
 // 打开文件
 async function openFile(fileName) {
   log(`打开目标文件: ${fileName}`);
-  const f = new creo.FileObj({ 
-    file: fileName, 
-    display: true, 
-    activate: true 
+  const f = new creo.FileObj({
+    file: fileName,
+    display: true,
+    activate: true
   });
   const openResp = await f.open();
   log(`✅ 文件打开成功: ${JSON.stringify(openResp)}`);
   return openResp;
 }
 
-// 设置参数（适配可配置的参数名和参数值）
+// 设置参数
 async function setParameter(paramName, paramValue) {
   log(`设置参数: ${paramName} = ${paramValue} (类型: STRING)`);
-  const p = new creo.ParameterObj({ 
-    name: paramName, 
-    value: paramValue, 
-    type: 'STRING', 
-    designate: true, 
-    no_create: false 
+  const p = new creo.ParameterObj({
+    name: paramName,
+    value: paramValue,
+    type: 'STRING',
+    designate: true,
+    no_create: false
   });
   const pResp = await p.set();
   log(`✅ 参数设置成功: ${JSON.stringify(pResp)}`);
@@ -154,13 +154,12 @@ async function saveFile(fileName) {
 // 完整执行序列（一键执行所有操作）
 async function runAllOperations() {
   try {
-    // 获取页面所有配置值
     const creosonUrl = document.getElementById('creosonUrl').value.trim();
     const startDir = document.getElementById('startDir').value.trim();
     const startCmd = document.getElementById('startCmd').value.trim();
     const fileName = document.getElementById('fileName').value.trim();
-    const paramName = document.getElementById('paramName').value.trim(); // 获取参数名
-    const paramValue = document.getElementById('paramValue').value.trim(); // 获取参数值
+    const paramName = document.getElementById('paramName').value.trim();
+    const paramValue = document.getElementById('paramValue').value.trim();
 
     // 校验必填项
     if (!paramName) {
@@ -176,7 +175,7 @@ async function runAllOperations() {
     log('====================================================');
     log('🚀 开始执行Creoson自动化全流程');
     log('====================================================');
-    
+
     // 1. 启动Creo
     const sess = await startCreo(startDir, startCmd);
 
@@ -216,7 +215,7 @@ async function runAllOperations() {
 document.getElementById('btnRunAll').addEventListener('click', runAllOperations);
 
 // 页面加载完成后初始化
-window.onload = function() {
+window.onload = function () {
   // 初始化Creoson URL
   setCreosonUrl(document.getElementById('creosonUrl').value);
   log('页面初始化完成，点击「执行全部操作」开始流程');
