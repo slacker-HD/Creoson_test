@@ -10,8 +10,6 @@ class CreosonClient
     private $creosonUrl = 'http://localhost:9056/creoson';
     private $timeout = 60;
     private $sessionId = '';
-    private $maxReadyChecks = 10;
-    private $checkInterval = 1;
 
 
     public function creosonPost($command, $function, $data = [])
