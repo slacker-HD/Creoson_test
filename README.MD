@@ -13,6 +13,10 @@
 - Nodejs测试代码，打开当前目录下fin.prt添加参数后保存。
 - creoson_js的文件复制自`CREOSON Server``\web\assets\creoson_stuff\creoson_js`，加入模块导出。
 
+## test2.js
+
+- Nodejs测试代码，纯使用HTTP POST请求实现打开当前目录下fin.prt添加参数后保存。
+
 ## test.html
 
 - HTML测试代码，打开当前目录下fin.prt添加参数后保存。
@@ -25,3 +29,11 @@
 ## test.php
 
 - PHP测试代码，打开当前目录下fin.prt添加参数后保存。
+
+## test.ps1
+
+- PowerShell测试代码，打开当前目录下fin.prt添加参数后保存。
+
+## test.vbs
+
+- vbs测试代码，打开当前目录下fin.prt添加参数后保存。
