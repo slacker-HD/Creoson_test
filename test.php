@@ -90,33 +90,11 @@ class CreosonClient
         echo "【1/6】Creo启动命令发送完成！\n";
     }
 
-    public function connectAndCheckReady()
+    public function connect()
     {
         echo "【2/6】建立Creoson会话...\n";
         $this->creosonPost('connection', 'connect');
         echo "【2/6】检测Creo会话就绪状态...\n";
-
-        $checkCount = 0;
-        while ($checkCount < $this->maxReadyChecks) {
-            try {
-                $absDir = realpath('D:\\mydoc\\Creoson_test');
-                $this->creosonPost('creo', 'cd', ['dirname' => $absDir]);
-                echo "[会话] Creo实例已就绪！\n";
-                echo "【2/6】会话验证成功！\n";
-                return;
-            } catch (Exception $e) {
-                if ($e->getCode() == 1001) {
-                    $checkCount++;
-                    if ($checkCount >= $this->maxReadyChecks) {
-                        throw new Exception("Creo会话超时未就绪（已检测{$this->maxReadyChecks}次）");
-                    }
-                    echo "[会话] Creo未就绪（第{$checkCount}次检测），{$this->checkInterval}秒后重试...\n";
-                    sleep($this->checkInterval);
-                } else {
-                    throw $e;
-                }
-            }
-        }
     }
 
     public function creoCd($dirName)
@@ -195,7 +173,7 @@ try {
 
     // 执行流程
     $client->startCreo($creoConfig);
-    $client->connectAndCheckReady();
+    $client->connect();
     $client->creoCd('D:\\mydoc\\Creoson_test');
     $client->fileOpen("fin.prt", "fin");
     $client->parameterSet("test", "PHP调用CREOSON添加的参数", "STRING");
