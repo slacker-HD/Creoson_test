@@ -27,7 +27,7 @@
 
 ## test2.js
 
-- Nodejs测试代码，纯使用HTTP POST请求实现打开当前目录下fin.prt添加参数后保存。
+- Nodejs测试代码，打开当前目录下fin.prt添加参数后保存。
 
 ## test.php
 
