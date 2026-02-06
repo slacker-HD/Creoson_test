@@ -48,3 +48,10 @@
 ## test.cs
 
 - CSharp测试代码，打开当前目录下fin.prt添加参数后保存。
+
+## wsl测试文件夹
+
+- test.sh，bash脚本，复制到wsl下面chmod +x后运行，实现wsl远程打开windows下目录下fin.prt添加参数后保存。
+- Creoson9056-开启.bat，开启端口9056，这样WSL可以访问CREOSON服务。
+- Creoson9056-关闭.bat，关闭端口9056，**不用的时候一定要记得关闭**。
+
