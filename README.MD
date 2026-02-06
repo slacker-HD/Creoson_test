@@ -41,6 +41,10 @@
 
 - vbs测试代码，打开当前目录下fin.prt添加参数后保存。
 
-## test2.py
+## test.java
 
-- vbs测试代码，打开当前目录下fin.prt添加参数后保存。
+- java测试代码，打开当前目录下fin.prt添加参数后保存。
+
+## test.cs
+
+- CSharp测试代码，打开当前目录下fin.prt添加参数后保存。
