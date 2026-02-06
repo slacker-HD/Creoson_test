@@ -207,7 +207,7 @@ async function runAllOperations() {
 1. 确认Creoson Server已启动（端口9056）：执行 netstat -ano | findstr 9056
 2. 确认${document.getElementById('startDir').value} 目录下有 ${document.getElementById('fileName').value} 和 ${document.getElementById('startCmd').value}
 3. 确认Creoson URL填写正确（当前: ${document.getElementById('creosonUrl').value}）
-4. 若报跨域错误，请启动Creoson CORS代理后修改URL为 http://localhost:8080/creoson`);
+4. 注意要把全部文件夹复制到CREOSON Server\\web文件夹再运行，不然会有跨域权限的问题;`);
   }
 }
 
