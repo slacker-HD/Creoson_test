@@ -28,6 +28,10 @@
 
 - PHP测试代码，打开当前目录下fin.prt添加参数后保存。
 
+## test.bat
+
+- 批处理测试代码，打开当前目录下fin.prt添加参数后保存。
+
 ## test.ps1
 
 - PowerShell测试代码，打开当前目录下fin.prt添加参数后保存。
