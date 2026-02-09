@@ -2,10 +2,6 @@
 chcp 65001 >nul
 setlocal EnableDelayedExpansion
 
-rem ============================================
-rem Creo CREOSON 自动化操作脚本 (纯CMD版本)
-rem ============================================
-
 rem 配置参数
 set "CREOSON_URL=http://localhost:9056/creoson"
 set "WORK_DIR=D:\mydoc\Creoson_test"
